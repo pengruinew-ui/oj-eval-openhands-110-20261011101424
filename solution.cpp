@@ -60,6 +60,13 @@ private:
         _month = 1;
         _day = 1;
         
+        // Handle negative days (dates before 1900-1-1)
+        while (days < 0) {
+            _year--;
+            int daysInYear = isLeapYear(_year) ? 366 : 365;
+            days += daysInYear;
+        }
+        
         // Find year
         while (days >= 365) {
             int daysInYear = isLeapYear(_year) ? 366 : 365;
