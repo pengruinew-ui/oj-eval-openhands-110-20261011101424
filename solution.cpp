@@ -38,10 +38,13 @@ private:
     int toDays() const {
         int days = 0;
         
-        // Add full years
-        for (int y = 1900; y < _year; y++) {
-            days += isLeapYear(y) ? 366 : 365;
-        }
+        // Add full years (optimized calculation)
+        int years = _year - 1900;
+        days += years * 365;
+        
+        // Add leap days
+        days += (_year - 1) / 4 - (_year - 1) / 100 + (_year - 1) / 400;
+        days -= (1899) / 4 - (1899) / 100 + (1899) / 400;
         
         // Add full months
         for (int m = 1; m < _month; m++) {
